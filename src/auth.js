@@ -101,6 +101,8 @@ let auth = new Vue({
             this.accessToken = result.accessToken
             this.token = result.idToken
             this.user = result.idTokenPayload
+
+            console.log('renewing token')
            
 
           } else {this.logout()}
@@ -112,7 +114,7 @@ let auth = new Vue({
 
       scheduleRenewal() {
         var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-        var delay = expiresAt - Date.now() -4680000; //1,3 uur
+        var delay = expiresAt - Date.now() -4000000; //1,3 uur
 
         //calc 
         var hoelang = ((delay/1000)/60)/60
@@ -121,8 +123,8 @@ let auth = new Vue({
 
         if (delay > 0) {
           tokenRenewalTimeout = setTimeout(function() {
-            
-            renewToken();
+            console.log('timer ended')
+            this.renewToken();
           }, delay)
 
         }
@@ -132,7 +134,7 @@ let auth = new Vue({
         var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         var delay = expiresAt - Date.now();
         var hoelang = ((delay/1000)/60)/60
-        return (hoelang + ' uur')
+        return (hoelang + ' uur-ass')
       }
 
 
